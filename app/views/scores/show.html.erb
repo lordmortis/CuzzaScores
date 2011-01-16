@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Value:</b>
+  <%= @score.value %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @score.url %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @score.email %>
+</p>
+
+
+<%= link_to 'Edit', edit_score_path(@score) %> |
+<%= link_to 'Back', scores_path %>
