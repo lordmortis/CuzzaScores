@@ -1,4 +1,5 @@
 class NicknamesController < ApplicationController
+	filter_resource_access
   # GET /nicknames
   # GET /nicknames.xml
   def index

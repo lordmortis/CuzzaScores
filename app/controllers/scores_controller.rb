@@ -1,9 +1,11 @@
 class ScoresController < ApplicationController
+	filter_resource_access
   # GET /scores
   # GET /scores.xml
   def index
 		if (params[:game_id])
  			@scores = Score.where("game_id = #{params[:game_id]}").order("game_id").order("value desc")
+			@game = Game.find(params[:game_id])
 		else
 			@scores = Score.order("game_id").order("value desc")
 		end
@@ -11,7 +13,18 @@ class ScoresController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @scores }
-			format.json { render :json => { :scores => @scores, :game => Game.find(params[:game_id]) } }
+			format.json {
+				if (params[:game_id])
+					output = {:game => @game.js_json }
+					output[:scores] = Array.new
+					@scores.each do |score|
+						output[:scores] << score.js_json
+					end
+					render :json => output
+				else
+					render :json => @scores
+				end
+			}
     end
   end
 

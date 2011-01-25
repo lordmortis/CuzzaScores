@@ -8,7 +8,17 @@
   <%= yield :head %>
 </head>
 <body>
-
+<div class="floatright">
+<span class="notice"><%= notice %></span>
+<span class="alert"><%= alert %></span>
+<% if user_signed_in? %>
+Welcome <%= current_user.username %>
+<%= link_to("Profile", edit_user_registration_path) %> |
+<%= link_to("Log out", destroy_user_session_path) %>
+<% else %>
+<%= link_to("Log in", new_user_session_path) %>
+<% end %>
+</div>
 <%= yield %>
 
 </body>

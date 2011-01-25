@@ -2,11 +2,8 @@ class CreateScores < ActiveRecord::Migration
   def self.up
     create_table :scores do |t|
       t.integer :value
-      t.string :url
-      t.string :email
 			t.integer :nickname_id
 			t.integer :game_id
-
       t.timestamps
     end
   end

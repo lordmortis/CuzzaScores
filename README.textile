@@ -1,0 +1,11 @@
+h2. CuzzaScores
+
+For all your Video Game scoring needs :)
+
+h2. Installation
+
+# clone the repo
+# install the gems - "bundle install" (or possibly "bundle install --path vendor/bundle" (or whatever path you want your gems in :))
+# "rake db:migrate" to config the database
+# "rake cuzzascores:config_admin_user" to set up the admin user
+# PROFIT! (I hope :) )

@@ -42,16 +42,24 @@ function rotateContent() {
 var temp;
 
 function gamedataLoaded(data, textStatus, XMLHttpRequest) {
-	var html = "Game: " + data.game.game.name + "<br/>";
-	html += "Scores: <br/>";
-	html += "<blockquote>";
-	for (i in data.scores) {
-		var score = data.scores[i].score;
-		html += score.nickname_id + " Score: " + score.value + "<br/>";
-	}
-	html += "</blockquote>";
+	var html = $("#game-template").clone();
+	var rank = 0;
+	html.find("#game-name").replaceWith(data.game.name);
+	temp = html;
 	
-	$("#content").html(html);
+	for (i in data.scores) {
+		rank++;
+		var score = data.scores[i];
+		var scoreline = $("#game-scoreline").clone();
+		scoreline.find("#rank").html(rank);
+		scoreline.find("#name").html(score.nickname);
+		scoreline.find("#score").html(score.score);
+		html.find("#game-scoretable").find("tbody").append(scoreline.find("tbody").html());
+//		scoreline.remove();
+	}
+	
+	$("#content").html(html.html());
+//	html.remove();
 }
 
 $(document).ready(function() {
@@ -65,3 +73,15 @@ $(document).ready(function() {
 Welcome to wai-con blah blah :) <br/>
 <div id="content">
 </div>
+
+<!-- Templates are below! -->
+
+<div id="game-template" class="hidden">
+<h1><span id="game-name"></span></h1>
+<table width="100%" border="1" id="game-scoretable">
+<tr><th>Rank</th><th>Name</th><th>Score</th></tr>
+</table>
+</div>
+<table id="game-scoreline" class="hidden">
+<tr><td id="rank"></td><td id="name"></td><td id="score"></td></tr>
+</table>

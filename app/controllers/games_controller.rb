@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+	filter_resource_access
   # GET /games
   # GET /games.xml
   def index
