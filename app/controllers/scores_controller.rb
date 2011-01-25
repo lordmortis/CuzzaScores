@@ -11,6 +11,7 @@ class ScoresController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @scores }
+			format.json { render :json => { :scores => @scores, :game => Game.find(params[:game_id]) } }
     end
   end
 

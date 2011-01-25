@@ -1,1 +1,67 @@
-Hi!
+<% content_for :head do %>
+<script>
+/* Set how long (in milliseconds) to display each content page */
+var CONTENTINTERVAL = 5000;
+
+var gametypes = [<% @games.each do |game| %>"<%= game.id %>",<% end %>];
+var blocks = [];
+
+var contents = [];
+var contentindex = 0;
+
+function setContents() {
+	for (i in gametypes) {
+		var content = new Object();
+		content.type = "game";
+		content.name = gametypes[i];
+		contents.push(content);
+	}
+	
+	for (i in blocks) {
+		var content = new Object();
+		content.type = "block";
+		content.name = blocks[i];
+		contents.push(content);
+	}
+}
+
+function rotateContent() {
+	if (contentindex > (contents.length - 1)) 
+		contentindex = 0;
+	var content = contents[contentindex];
+	if (content.type == "block") {
+		// TODO: do this!
+	} else if (content.type == "game") {
+		var data = new Object();
+		data.game_id = content.name;
+		$.get('/scores', data, gamedataLoaded, "json");
+	}
+	contentindex++;
+}
+
+var temp;
+
+function gamedataLoaded(data, textStatus, XMLHttpRequest) {
+	var html = "Game: " + data.game.game.name + "<br/>";
+	html += "Scores: <br/>";
+	html += "<blockquote>";
+	for (i in data.scores) {
+		var score = data.scores[i].score;
+		html += score.nickname_id + " Score: " + score.value + "<br/>";
+	}
+	html += "</blockquote>";
+	
+	$("#content").html(html);
+}
+
+$(document).ready(function() {
+	setContents();
+	rotateContent();
+	setInterval("rotateContent()", CONTENTINTERVAL);
+});
+</script>
+<% end %>
+
+Welcome to wai-con blah blah :) <br/>
+<div id="content">
+</div>
