@@ -15,6 +15,10 @@
 Welcome <%= current_user.username %>
 <%= link_to("Profile", edit_user_registration_path) %> |
 <%= link_to("Log out", destroy_user_session_path) %>
+<% if current_user.role_symbols.index(:admin) != nil %>
+<br/>
+<%= link_to("Scores", scores_path) %> | <%= link_to("Games", games_path) %> | <%= link_to("Nicknames", nicknames_path) %>
+<% end %>
 <% else %>
 <%= link_to("Log in", new_user_session_path) %>
 <% end %>

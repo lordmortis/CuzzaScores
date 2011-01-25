@@ -5,8 +5,6 @@
 		<th>Game</th>
 		<th>NickName</th>
     <th>Value</th>
-    <th>Url</th>
-    <th>Email</th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,8 +15,6 @@
 		<td><%= score.game.name %></td>
 		<td><%= score.nickname.name %></td>
     <td><%= score.value %></td>
-    <td><%= score.url %></td>
-    <td><%= score.email %></td>
     <td><%= link_to 'Show', score %></td>
     <td><%= link_to 'Edit', edit_score_path(score) %></td>
     <td><%= link_to 'Destroy', score, :confirm => 'Are you sure?', :method => :delete %></td>
