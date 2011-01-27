@@ -4,12 +4,21 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable
 #:validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :role_ids
+
+	def displayRoles
+		output = ""
+		roles.each do |role|
+			output += role.name + ", "
+		end
+		
+		output[0..-3]
+	end
 
 	def role_symbols
 		roles.map do |role|

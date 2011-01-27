@@ -5,6 +5,10 @@ authorization do
 		has_permission_on :games, :to => :show
 		has_permission_on [:content_blocks], :to => [:show, :index]
   end
+	
+	role :member do
+		has_permission_on [:users], :to => [:update, :show, :destroy]		
+	end
 
 	role :proctor do
 		has_permission_on :index, :to => [:index, :addscores]
@@ -20,6 +24,7 @@ authorization do
 		has_permission_on [:content_blocks], :to => [:new, :index, :create, :edit, :update, :show, :destroy, :preview, :publish, :unpublish]
 		has_permission_on [:content_tags], :to => [:new, :index, :create, :edit, :update, :show, :destroy]
 		has_permission_on [:content_pages], :to => [:new, :index, :create, :edit, :update, :show, :destroy]
+		has_permission_on [:users], :to => [:new, :index, :create, :edit, :update, :show, :destroy]
 	end
 end
 

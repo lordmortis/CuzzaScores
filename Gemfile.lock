@@ -1,5 +1,6 @@
-PATH
-  remote: /Users/lordmortis/Projects/MortisCMS
+GIT
+  remote: git@github.com:lordmortis/MortisCMS.git
+  revision: b65c8c6f7a14bf9d6e1159911a865913bfffc714
   specs:
     MortisCMS (0.0.1)
 

@@ -14,11 +14,11 @@
 <span class="alert"><%= alert %></span>
 <% if user_signed_in? %>
 Welcome <%= current_user.username %>
-<%= link_to("Profile", edit_user_registration_path) %> |
+<%= link_to("Profile", edit_user_path(current_user)) %> |
 <%= link_to("Log out", destroy_user_session_path) %>
 <% if current_user.role_symbols.index(:admin) != nil %>
 <br/>
-<%= link_to("Scores", scores_path) %> | <%= link_to("Games", games_path) %> | <%= link_to("Nicknames", nicknames_path) %> | <%= link_to("Content Blocks", content_blocks_path)%>
+<%= link_to("Games", games_path) %> | <%= link_to("Content Blocks", content_blocks_path)%> | <%= link_to("User Admin", users_path)%><br/>
 <% end %>
 <% if permitted_to? :addscores, :index %>
 <%= link_to "Add scores", :controller => "index", :action => "addscores" %>
