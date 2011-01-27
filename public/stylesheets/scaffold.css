@@ -11,8 +11,6 @@ body, p, ol, ul, td {
 }
 
 body {
-	background-image:url(/public/images/background_heartris.jpg);
-	/* background-image:url(/public/images/background_halo.jpg); */
 	background-color:#000;
 	background-repeat:no-repeat;
 	background-position:100% 100%;
@@ -73,6 +71,14 @@ div.field, div.actions {
 #error_explanation ul li {
   font-size: 12px;
   list-style: square;
+}
+
+.page_content {
+	font-size: 2em;
+}
+
+h1 {
+	font-size: 4em;
 }
 
 /* Table Styling */

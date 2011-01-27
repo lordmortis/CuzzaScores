@@ -67,16 +67,30 @@ function gamedataLoaded(data, textStatus, XMLHttpRequest) {
 		scoreline.find("#rank").html(rank);
 		scoreline.find("#name").html(score.name);
 		scoreline.find("#score").html(score.score);
+		if (rank == 1)
+			scoreline.find("tr").addClass("rank1");
+		else if (rank == 2)
+			scoreline.find("tr").addClass("rank2");
+		else if (rank == 3)
+			scoreline.find("tr").addClass("rank3");
+		else if (rank > 3 && rank < 11)
+			scoreline.find("tr").addClass("rank4");
+		else
+			scoreline.find("tr").addClass("rank5");
 		html.find("#game-scoretable").find("tbody").append(scoreline.find("tbody").html());
 	}
 	
 	$("#content").html(html.html());
+	$("#content").removeClass("page_content");	
+	$("body").css('background-image', 'url(images/game_bkg-' + contents[contentindex - 1].name + '.jpg)');
 }
 
 function loadedBlock(data, textStatus, XMLhttpRequest) {
 	if (textStatus == "success") {
 		$("#content").html(data.block.html);
+		$("#content").addClass("page_content");
 	}	
+	$("body").css('background-image', '');
 }
 
 $(document).ready(function() {
@@ -88,14 +102,10 @@ $(document).ready(function() {
 });
 </script>
 <% end %>
-
-Welcome to wai-con blah blah :) <br/>
 <div id="content">
 </div>
 
 <!-- Templates are below! -->
-<!-- Note: the body tag has two different backgrounds dependent on if it's Halo or Tetris, check scaffold.css for details -->
-
 <div id="content">
 <div id="game-template" class="hidden">
   <h1><span id="game-name"></span></h1>
@@ -103,16 +113,16 @@ Welcome to wai-con blah blah :) <br/>
   	<!-- Table rows go from class rank1(1) rank2(2) rank3(3) rank4(4-10) rank5(11-onwards) -->
 	<tr>
 	  <th class="table_left">Rank</th>
-	  <th class="table_center">Name</th>
+	  <th class="table_center" width="800px;">Name</th>
 	  <th class="table_right">Score</th>
 	</tr>
   </table>
 </div>
 <table id="game-scoreline" class="hidden">
   <tr>
-	<td id="rank"></td>
+	<td id="rank" class="table_left"></td>
 	<td id="name"></td>
-	<td id="score"></td>
+	<td id="score" class="table_right"></td>
   </tr>
 </table>
 </div>
