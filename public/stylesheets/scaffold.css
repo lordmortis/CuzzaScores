@@ -1,15 +1,35 @@
-body { background-color: #fff; color: #333; }
+body { margin:0; padding:0; background-color: #fff; color: #FFF; }
+
+html, body {
+	height:100%
+}
 
 body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size:   62.5%;
   line-height: 18px;
+}
+
+body {
+	background-image:url(/public/images/background_heartris.jpg);
+	/* background-image:url(/public/images/background_halo.jpg); */
+	background-color:#000;
+	background-repeat:no-repeat;
+	background-position:100% 100%;
 }
 
 pre {
   background-color: #eee;
   padding: 10px;
   font-size: 11px;
+}
+
+#content {
+	margin:0 auto;
+	padding:30px;
+	width:80%;
+	border:0px solid green;
+	text-align:center;
 }
 
 a { color: #000; }
@@ -53,4 +73,74 @@ div.field, div.actions {
 #error_explanation ul li {
   font-size: 12px;
   list-style: square;
+}
+
+/* Table Styling */
+
+.table_left {
+	width:30%;
+	text-align:right;
+}
+
+.table_center {
+	width:*;
+	text-align:center;
+}
+
+.table_right {
+	width:30%;
+	text-align:left;
+}
+
+h1 #game-name {
+	font-size:3em;
+	color: red;
+	padding:100px;
+}
+
+table {
+	border:0;
+	
+}
+
+table th {
+	font-size:2em;
+	color:#fff;
+}
+
+table .rank1 {
+	font-size:10em;
+	color:red;
+	font-weight:900;
+	height:80px;
+	vertical-align:middle;
+}
+
+table .rank2 {
+	font-size:8em;
+	color:green;
+	font-weight:700;
+	height:60px;
+	vertical-align:middle;
+}
+
+table .rank3 {
+	font-size:6em;
+	color:blue;
+	font-weight:400;
+	height:40px;
+	vertical-align:middle;
+}
+
+table .rank4 {
+	font-size:4em;
+	color:purple;
+	height:30px;
+	vertical-align:middle;
+}
+table .rank5 {
+	font-size:2em;
+	color:#fff;
+	height:8px;
+	vertical-align:middle;
 }

@@ -94,6 +94,29 @@ Welcome to wai-con blah blah :) <br/>
 </div>
 
 <!-- Templates are below! -->
+<!-- Note: the body tag has two different backgrounds dependent on if it's Halo or Tetris, check scaffold.css for details -->
+
+<div id="content">
+<div id="game-template" class="hidden">
+  <h1><span id="game-name"></span></h1>
+  <table border="0" cellpadding="0" cellspacing="0" id="game-scoretable">
+  	<!-- Table rows go from class rank1(1) rank2(2) rank3(3) rank4(4-10) rank5(11-onwards) -->
+	<tr>
+	  <th class="table_left">Rank</th>
+	  <th class="table_center">Name</th>
+	  <th class="table_right">Score</th>
+	</tr>
+  </table>
+</div>
+<table id="game-scoreline" class="hidden">
+  <tr>
+	<td id="rank"></td>
+	<td id="name"></td>
+	<td id="score"></td>
+  </tr>
+</table>
+</div>
+
 
 <div id="game-template" class="hidden">
 <h1><span id="game-name"></span></h1>
