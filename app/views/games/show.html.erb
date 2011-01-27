@@ -5,6 +5,37 @@
   <%= @game.name %>
 </p>
 
+High Score List:
+<table>
+<tr><th>Rank</th><th>Name</th><th>Score</th></tr>
+<% rank = 1 %>
+<% @scores.each do |score| %>
+<tr><td><%= rank %></td><td><%= score[:name] %></td><td><%= score[:score] %></td></tr>
+<% rank += 1%>
+<% end %>
+</table>
+<br/>
+<% if @game.cumulative %>
+<% @scores.each do |score| %>
+<strong><%= score[:name] %></strong> has scores:
+<table width="80%">
+<tr><th>Score</th><th>Time Entered</th><th>Last Updated</th><th>Options</th></tr>
+<% @game.scores.joins(:nickname).where("nicknames.name" => score[:name]).order("created_at DESC").each do |score| %>
+<tr><td><%= score.value %></td><td><%= score.created_at.strftime("%A %H:%M") %></td><td><%= score.created_at.strftime("%A %H:%M") %></td>
+<td><%= link_to "Edit", edit_score_path(score) %> | <%= link_to "Delete", score, :confirm => 'Are you sure?', :method => :delete %></td></tr>
+<% end %>
+</table><br/>
+<% end %>
+<% else %>
+High scores entered for this game:<br/>
+<table width="80%">
+<tr><th>Nickname</th><th>Score</th><th>Time Entered</th><th>Last Updated</th><th>Options</th></tr>
+<% @game.scores.order("value DESC").each do |score| %>
+<tr><td><%= score.nickname.name %></td><td><%= score.value %></td><td><%= score.created_at.strftime("%A %H:%M") %></td><td><%= score.created_at.strftime("%A %H:%M") %></td>
+<td><%= link_to "Edit", edit_score_path(score) %> | <%= link_to "Delete", score, :confirm => 'Are you sure?', :method => :delete %></td></tr>
+<% end %>
+</table>
+<% end %>
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>

@@ -54,11 +54,9 @@ function gamedataLoaded(data, textStatus, XMLHttpRequest) {
 		scoreline.find("#name").html(score.name);
 		scoreline.find("#score").html(score.score);
 		html.find("#game-scoretable").find("tbody").append(scoreline.find("tbody").html());
-//		scoreline.remove();
 	}
 	
 	$("#content").html(html.html());
-//	html.remove();
 }
 
 $(document).ready(function() {
