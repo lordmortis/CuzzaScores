@@ -15,10 +15,15 @@ class GamesController < ApplicationController
   # GET /games/1.xml
   def show
     @game = Game.find(params[:id])
-
-    respond_to do |format|
+		@scores = @game.score_table
+		
+		respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @game }
+			format.json {
+				output = {:game => @game.js_json, :scores => @scores}
+				render :json => output
+			}
     end
   end
 

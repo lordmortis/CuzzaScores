@@ -1,7 +1,8 @@
 authorization do
   role :guest do
 		has_permission_on :index, :to => :index
-		has_permission_on :scores, :to => :show
+		has_permission_on :scores, :to => :show, :to => :index
+		has_permission_on :games, :to => :show
   end
 
 	role :proctor do

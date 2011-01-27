@@ -33,8 +33,7 @@ function rotateContent() {
 		// TODO: do this!
 	} else if (content.type == "game") {
 		var data = new Object();
-		data.game_id = content.name;
-		$.get('/scores', data, gamedataLoaded, "json");
+		$.get('/games/' + content.name + '.json', null, gamedataLoaded, "json");
 	}
 	contentindex++;
 }
@@ -52,7 +51,7 @@ function gamedataLoaded(data, textStatus, XMLHttpRequest) {
 		var score = data.scores[i];
 		var scoreline = $("#game-scoreline").clone();
 		scoreline.find("#rank").html(rank);
-		scoreline.find("#name").html(score.nickname);
+		scoreline.find("#name").html(score.name);
 		scoreline.find("#score").html(score.score);
 		html.find("#game-scoretable").find("tbody").append(scoreline.find("tbody").html());
 //		scoreline.remove();
