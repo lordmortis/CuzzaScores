@@ -6,11 +6,13 @@ authorization do
   end
 
 	role :proctor do
+		has_permission_on :index, :to => [:index, :addscores]
 		has_permission_on :nicknames, :to => [:new, :index, :show, :create, :edit, :update]
 		has_permission_on :scores, :to => [:new, :index, :show, :create, :edit, :update]
 	end
 
 	role :admin do
+		has_permission_on :index, :to => [:index, :addscores]
 		has_permission_on :games, :to => [:new, :index, :show, :create, :edit, :update, :destroy]
 		has_permission_on :nicknames, :to => [:new, :index, :show, :create, :edit, :update, :destroy]
 		has_permission_on :scores, :to => [:new, :index, :show, :create, :edit, :update, :destroy]		

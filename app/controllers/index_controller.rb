@@ -4,4 +4,8 @@ class IndexController < ApplicationController
 		@games = Game.all
 	end
 	
+	def addscores
+		
+	end
+	
 end

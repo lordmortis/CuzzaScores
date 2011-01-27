@@ -57,16 +57,32 @@ class ScoresController < ApplicationController
 
   # POST /scores
   # POST /scores.xml
+	# POST /scores.json
   def create
-    @score = Score.new(params[:score])
-
+		logger.info("HALLO")
+		if params.key?("ajax")
+			@score = Score.new
+			@score.value = params[:score][:value]
+			@score.game_id = params[:score][:game_id]
+			nickname = Nickname.where(:name => params[:name]).first
+			if (nickname == nil)
+				nickname = Nickname.new(:name => params[:name])
+				nickname.save
+			end
+			@score.nickname = nickname
+		else
+    	@score = Score.new(params[:score])
+		end
+		
     respond_to do |format|
       if @score.save
         format.html { redirect_to(@score, :notice => 'Score was successfully created.') }
         format.xml  { render :xml => @score, :status => :created, :location => @score }
+        format.json  { render :json => @score, :status => :created, :location => @score }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @score.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @score.errors, :status => :unprocessable_entity }
       end
     end
   end

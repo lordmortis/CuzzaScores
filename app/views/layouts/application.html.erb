@@ -4,6 +4,7 @@
   <title>Scoreboard</title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag "jquery.autocomplete" %>
   <%= csrf_meta_tag %>
   <%= yield :head %>
 </head>
@@ -17,7 +18,10 @@ Welcome <%= current_user.username %>
 <%= link_to("Log out", destroy_user_session_path) %>
 <% if current_user.role_symbols.index(:admin) != nil %>
 <br/>
-<%= link_to("Scores", scores_path) %> | <%= link_to("Games", games_path) %> | <%= link_to("Nicknames", nicknames_path) %>
+<%= link_to("Scores", scores_path) %> | <%= link_to("Games", games_path) %> | <%= link_to("Nicknames", nicknames_path) %> |
+<% end %>
+<% if permitted_to? :addscores, :index %>
+<%= link_to "Add scores", :controller => "index", :action => "addscores" %>
 <% end %>
 <% else %>
 <%= link_to("Log in", new_user_session_path) %>

@@ -1,0 +1,76 @@
+<% content_for :head do %>
+<script>
+var temp;
+var loaded = false;
+
+function loadGames() {
+	$.get('/games.json', null, loadedGames, "json");
+}
+
+function loadedGames(data, textStatus, XMLHttpRequest) {
+	if (loaded)
+		$("#game-type").html("");
+		
+	for (i in data.games)
+		$("#game-type").append("<option value=\"" + data.games[i].id + "\">" + data.games[i].name + "</option>");
+		
+	if (!loaded) {
+		loaded = true
+		dataLoaded();
+	}
+}
+
+function addScore() {
+	$("#submit").attr("disabled", true);
+	$("#submit").val("Sending...");
+	var data = new Object();
+	data.name = $("#name").val();
+	data.score = new Object();
+	data.score.game_id = $("#game-type").val();
+	data.score.value = $("#score").val();
+	data.ajax = true;
+	$.post('/scores.json', data, addedScore, "json");
+}
+
+function addedScore(data, textStatus, XMLHttpRequest) {
+	$("#submit").attr("disabled", false);
+	if (textStatus == "success") {
+		if (data.score != null) {
+			$("#name").val("");
+			$("#score").val("");
+			$("#submit").val("Add Score");	
+		} else 
+			$("#submit").val("Error!");	
+	} else {
+		$("#submit").val("Error!");	
+	}
+}
+
+function dataLoaded() {
+	$("#loading").remove();
+	$("#loaded").removeClass("hidden");
+}
+
+function nicknameSelect(value, data) {
+	console.log("Selected " + value + " Data: " + data);
+}
+
+$(document).ready(function() {
+	loadGames();
+	options = { serviceUrl:'/nicknames.json',
+							minChars: 2,
+							onSelect: nicknameSelect,
+							deferRequestBy: 100
+	 };
+	a = $('#name').autocomplete(options);
+});
+</script>
+<% end %>
+<span id="loading">Loading...<br/></span>
+
+<!-- Templates are below! -->
+<div id="loaded" class="hidden">
+<input type="text" id="name"><br/>
+Scored <input type="text" id="score"/> in: <select id="game-type"></select><br/>	
+<input type="submit" onClick="addScore();" value="Add Score" id="submit"/>
+</div>

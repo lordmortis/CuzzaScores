@@ -3,13 +3,29 @@ class NicknamesController < ApplicationController
   # GET /nicknames
   # GET /nicknames.xml
   def index
-    @nicknames = Nickname.all
+		if params.key?(:query)
+			search(params[:query])
+			return
+		else
+    	@nicknames = Nickname.all
+		end
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @nicknames }
     end
   end
+
+	def search(string)
+		output = {:query => string, :suggestions => Array.new, :data => Array.new}
+		arel = Nickname.arel_table
+		nicknames = Nickname.where(arel[:name].matches('%' + string + "%"))
+		nicknames.each do |found|
+			output[:suggestions] << found.name
+			output[:data] << found.id
+		end
+		render :json => output
+	end
 
   # GET /nicknames/1
   # GET /nicknames/1.xml

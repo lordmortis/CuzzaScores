@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-	has_many :scores
+	has_many :scores, :dependent => :destroy
 
 	def score_table
 		if cumulative
