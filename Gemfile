@@ -9,6 +9,9 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'devise'
 gem 'jquery-rails', '>= 0.2.6'
 gem 'declarative_authorization'
+gem 'RedCloth'
+#gem 'MortisCMS', :require => 'mortiscms', :path => '/Users/lordmortis/Projects/MortisCMS'
+gem 'MortisCMS', :require => 'mortiscms', :git => 'git@github.com:lordmortis/MortisCMS.git'
 
 # Use unicorn as the web server
 # gem 'unicorn'

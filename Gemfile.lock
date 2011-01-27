@@ -1,6 +1,12 @@
+PATH
+  remote: /Users/lordmortis/Projects/MortisCMS
+  specs:
+    MortisCMS (0.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
+    RedCloth (4.2.3)
     abstract (1.0.0)
     actionmailer (3.0.3)
       actionpack (= 3.0.3)
@@ -79,6 +85,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  MortisCMS!
+  RedCloth
   declarative_authorization
   devise
   jquery-rails (>= 0.2.6)

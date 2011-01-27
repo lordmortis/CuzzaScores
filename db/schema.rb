@@ -10,7 +10,49 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110125125419) do
+ActiveRecord::Schema.define(:version => 201101271131504) do
+
+  create_table "content_blocks", :force => true do |t|
+    t.string   "title"
+    t.text     "summary"
+    t.text     "bodytext"
+    t.boolean  "autosummarize", :default => false, :null => false
+    t.integer  "editor_id"
+    t.integer  "author_id"
+    t.boolean  "published",     :default => false, :null => false
+    t.integer  "tweet_id"
+    t.string   "short_url"
+    t.boolean  "preview",       :default => true,  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "content_blocks", ["author_id"], :name => "index_content_blocks_on_author_id"
+  add_index "content_blocks", ["editor_id"], :name => "index_content_blocks_on_editor_id"
+
+  create_table "content_pages", :force => true do |t|
+    t.string   "name",             :null => false
+    t.integer  "content_block_id"
+    t.integer  "content_tag_id"
+    t.integer  "order_index"
+    t.boolean  "home"
+    t.boolean  "navbar"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "content_tag_blocks", :force => true do |t|
+    t.integer  "content_tag_id"
+    t.integer  "content_block_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "content_tags", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "games", :force => true do |t|
     t.string   "name"

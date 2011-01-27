@@ -1,15 +1,18 @@
 <% content_for :head do %>
 <script>
 /* Set how long (in milliseconds) to display each content page */
-var CONTENTINTERVAL = 5000;
+var CONTENTINTERVAL = 5 * 1000;
+var BLOCK_ID_REFRESH_INTERVAL = 5 * 60 * 1000;
 
 var gametypes = [<% @games.each do |game| %>"<%= game.id %>",<% end %>];
 var blocks = [];
-
 var contents = [];
 var contentindex = 0;
 
+var temp;
+
 function setContents() {
+	contents = [];
 	for (i in gametypes) {
 		var content = new Object();
 		content.type = "game";
@@ -25,20 +28,31 @@ function setContents() {
 	}
 }
 
+function loadBlockIDs() {
+	$.get('/content_blocks.json', null, loadedBlockIDs, "json");
+}
+
+function loadedBlockIDs(data, textStatus, XMLHttpRequest) {
+	if (textStatus == "success") {
+		blocks = [];
+		for (index in data.ids) 
+			blocks.push(data.ids[index]);
+		setContents();
+	}
+}
+
 function rotateContent() {
 	if (contentindex > (contents.length - 1)) 
 		contentindex = 0;
 	var content = contents[contentindex];
 	if (content.type == "block") {
-		// TODO: do this!
+		$.get('/content_blocks/' + content.name + '.json', null, loadedBlock, "json");
 	} else if (content.type == "game") {
 		var data = new Object();
 		$.get('/games/' + content.name + '.json', null, gamedataLoaded, "json");
 	}
 	contentindex++;
 }
-
-var temp;
 
 function gamedataLoaded(data, textStatus, XMLHttpRequest) {
 	var html = $("#game-template").clone();
@@ -59,7 +73,15 @@ function gamedataLoaded(data, textStatus, XMLHttpRequest) {
 	$("#content").html(html.html());
 }
 
+function loadedBlock(data, textStatus, XMLhttpRequest) {
+	if (textStatus == "success") {
+		$("#content").html(data.block.html);
+	}	
+}
+
 $(document).ready(function() {
+	loadBlockIDs();
+	setInterval("loadBlockIDs()", BLOCK_ID_REFRESH_INTERVAL);
 	setContents();
 	rotateContent();
 	setInterval("rotateContent()", CONTENTINTERVAL);

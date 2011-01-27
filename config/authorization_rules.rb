@@ -3,6 +3,7 @@ authorization do
 		has_permission_on :index, :to => :index
 		has_permission_on :scores, :to => :show, :to => :index
 		has_permission_on :games, :to => :show
+		has_permission_on [:content_blocks], :to => [:show, :index]
   end
 
 	role :proctor do
@@ -16,6 +17,9 @@ authorization do
 		has_permission_on :games, :to => [:new, :index, :show, :create, :edit, :update, :destroy]
 		has_permission_on :nicknames, :to => [:new, :index, :show, :create, :edit, :update, :destroy]
 		has_permission_on :scores, :to => [:new, :index, :show, :create, :edit, :update, :destroy]		
+		has_permission_on [:content_blocks], :to => [:new, :index, :create, :edit, :update, :show, :destroy, :preview, :publish, :unpublish]
+		has_permission_on [:content_tags], :to => [:new, :index, :create, :edit, :update, :show, :destroy]
+		has_permission_on [:content_pages], :to => [:new, :index, :create, :edit, :update, :show, :destroy]
 	end
 end
 
